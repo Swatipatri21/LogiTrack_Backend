@@ -221,7 +221,8 @@ public class ShipmentService {
         	    destCoords[0],   destCoords[1],     // destination lat/lng
         	    route.size()                         // hub count for processing overhead
         	);
-
+         saved.setExpectedDeliveryDate(expectedDate);
+        saved = shipmentRepository.save(saved); 
         // 7. Log creation in DeliveryHistory
         DeliveryHistory history = DeliveryHistory.builder()
                 .shipment(saved)                              // ← use `saved`
