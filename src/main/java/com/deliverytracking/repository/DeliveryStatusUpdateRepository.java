@@ -2,7 +2,11 @@ package com.deliverytracking.repository;
 
 import com.deliverytracking.entity.DeliveryStatusUpdate;
 import com.deliverytracking.entity.Shipment;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -31,4 +35,9 @@ public interface DeliveryStatusUpdateRepository extends JpaRepository<DeliverySt
         @Param("from") LocalDateTime from, 
         @Param("to") LocalDateTime to
     );
+
+	@Modifying
+@Transactional
+@Query("UPDATE DeliveryStatusUpdate d SET d.updatedBy = null WHERE d.updatedBy.id = :userId")
+void nullifyUpdatedBy(@Param("userId") Long userId);
 }
