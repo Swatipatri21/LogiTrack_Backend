@@ -11,6 +11,7 @@ import com.deliverytracking.exception.ResourceNotFoundException;
 import com.deliverytracking.repository.DeliveryStatusUpdateRepository;
 import com.deliverytracking.repository.ShipmentRepository;
 import com.deliverytracking.repository.ShipmentRouteRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -189,7 +190,6 @@ public class OtpService {
 
         // Generate fresh OTP — resets expiry and attempt counter
         generateAndSendOtp(shipment);
-
         log.info("OTP resent for shipment {}", trackingId);
     }
 }
