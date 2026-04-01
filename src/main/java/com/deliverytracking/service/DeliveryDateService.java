@@ -23,7 +23,7 @@ public class DeliveryDateService {
     private final ShipmentRepository shipmentRepository;
     private final ShipmentRouteRepository shipmentRouteRepository;
     private final DeliveryStatusUpdateRepository statusUpdateRepository;
-
+    
 //    private static final int HOURS_PER_HUB      = 12;
     private static final int DELAY_THRESHOLD_HOURS = 6;  // hours over expected = delay
     private static final int EARLY_THRESHOLD_HOURS = 2;  // hours under expected = ahead
@@ -225,12 +225,6 @@ public class DeliveryDateService {
 
          LocalDateTime now          = LocalDateTime.now();
          LocalDateTime expectedDate = shipment.getExpectedDeliveryDate();
-
-         if (expectedDate == null) {
-             log.warn("Shipment {} has no expectedDeliveryDate — skipping delay check.",
-                 shipment.getTrackingId());
-             return;
-         }
 
          // Total window from creation to expected delivery
          if (shipment.getCreatedAt() == null || expectedDate == null) {
