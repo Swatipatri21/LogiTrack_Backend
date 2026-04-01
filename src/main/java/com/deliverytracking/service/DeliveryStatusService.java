@@ -381,6 +381,15 @@ public class DeliveryStatusService {
 	        shipment.setCurrentStatus(ShipmentStatus.DELIVERED);
 	        shipmentRepository.save(shipment);
 		}
+	else if (incomingStatus == ShipmentRouteStatus.REJECTED) {
+    shipment.setCurrentStatus(ShipmentStatus.RETURNED_TO_SENDER);
+    step.setStatus(ShipmentRouteStatus.REJECTED.name());
+    shipmentRepository.save(shipment);
+    shipmentRouteRepository.save(step);
+    saveStatusUpdate(shipment, "FAILED", staff, step.getHub().getName(),
+        "Delivery rejected by recipient. Returning to sender.");
+}	
+	  
 	}
 
 	
